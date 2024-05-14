@@ -1,4 +1,5 @@
 import { DataGrid, GridColDef, GridPaginationModel, GridValidRowModel } from "@mui/x-data-grid";
+import "./DataGrid.scss";
 
 type DataTableProps<T extends GridValidRowModel> = {
   rows: readonly T[];
@@ -18,7 +19,7 @@ export function DataTable<T extends GridValidRowModel>({
   totalDataCount,
 }: DataTableProps<T>) {
   return (
-    <div style={{ width: "100%" }}>
+    <div className="data-grid">
       <DataGrid
         rows={rows}
         columns={columns}
