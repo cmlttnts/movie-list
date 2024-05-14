@@ -8,7 +8,6 @@ import "./MovieDetail.scss";
 
 export function MovieDetailPage() {
   const params = useParams<{ id: string }>();
-  console.log("params: ", params);
 
   const { data, isFetching, error } = useSearchMovieByImdbIDQuery(
     { imdbID: params.id! },
