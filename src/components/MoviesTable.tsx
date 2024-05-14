@@ -5,6 +5,7 @@ import { useSearchMoviesByTitleQuery } from "../services/movie";
 import { GridColDef, GridPaginationModel } from "@mui/x-data-grid";
 import { MovieSearchItem } from "../types";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { Link } from "react-router-dom";
 
 export function MoviesTable({
   handlePagination,
@@ -44,9 +45,9 @@ export function MoviesTable({
       flex: 1,
       renderCell: (param) => {
         return (
-          <a href={`https://www.imdb.com/title/${param.row.imdbID}`} target="_blank" rel="noreferrer">
+          <Link to={`/movie/${param.row.imdbID}`} style={{ display: "flex", alignItems: "center" }}>
             {param.value}
-          </a>
+          </Link>
         );
       },
     },

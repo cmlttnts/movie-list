@@ -1,6 +1,11 @@
-import { store } from "./store/store";
-import { Provider } from "react-redux";
+import { RouterProvider, RouterProviderProps } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
+import { Store } from "@reduxjs/toolkit";
 
-export function Providers({ children }: React.PropsWithChildren) {
-  return <Provider store={store}>{children}</Provider>;
+export function Providers({ router, store }: RouterProviderProps & { store: Store }) {
+  return (
+    <ReduxProvider store={store}>
+      <RouterProvider router={router} />
+    </ReduxProvider>
+  );
 }

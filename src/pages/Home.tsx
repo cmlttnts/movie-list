@@ -6,12 +6,12 @@ import "@fontsource/roboto/700.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useCallback, useState } from "react";
 import { GridPaginationModel } from "@mui/x-data-grid";
-import { MovieSearch } from "./components/MovieSearch";
-import "./App.scss";
-import { useDebouncedCallback } from "./hooks/useDebouncedCallback";
-import { MoviesTable } from "./components/MoviesTable";
+import { MovieSearch } from "../components/MovieSearch";
+import { useDebouncedCallback } from "../hooks/useDebouncedCallback";
+import { MoviesTable } from "../components/MoviesTable";
+import "./Home.scss";
 
-function App() {
+export function HomePage() {
   const [pagination, setPagination] = useState<GridPaginationModel>({ page: 0, pageSize: 10 });
   const [q, setQ] = useState<string>("Pokemon");
 
@@ -35,5 +35,3 @@ function App() {
     </>
   );
 }
-
-export default App;
