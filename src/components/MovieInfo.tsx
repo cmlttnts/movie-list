@@ -1,9 +1,10 @@
 import { MovieDetailItem } from "../types";
+import "./MovieInfo.scss";
 
 export function MovieInfo({ movie }: { movie: MovieDetailItem }) {
   return (
-    <div style={{ display: "flex", gap: "1rem" }}>
-      <img src={movie.Poster} style={{ maxHeight: "500px", objectFit: "contain" }} alt={movie.Title} />
+    <div className="movie-info-container">
+      <img src={movie.Poster} className="movie-poster" alt={movie.Title} />
       <div>
         <p>
           <b>Title:</b> {movie.Title}

@@ -4,6 +4,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useSearchMovieByImdbIDQuery } from "../services/movie";
 import { MovieInfo } from "../components/MovieInfo";
 import { ArrowLeft } from "@mui/icons-material";
+import "./MovieDetail.scss";
+
 export function MovieDetailPage() {
   const params = useParams<{ id: string }>();
   console.log("params: ", params);
@@ -32,7 +34,7 @@ export function MovieDetailPage() {
           <MovieInfo movie={data} />
         </>
       )}
-      <Link to="/" style={{ display: "flex", position: "absolute", top: "1rem", right: "1rem" }}>
+      <Link to="/" className="go-back-link">
         <ArrowLeft />
         Go Back
       </Link>

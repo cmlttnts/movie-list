@@ -3,7 +3,7 @@ import { DataTable } from "./DataGrid";
 import { useMemo } from "react";
 import { useSearchMoviesByTitleQuery } from "../services/movie";
 import { GridColDef, GridPaginationModel } from "@mui/x-data-grid";
-import { MovieSearchItem } from "../types";
+import { MovieSearchItem, MovieType } from "../types";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Link } from "react-router-dom";
 
@@ -11,12 +11,21 @@ export function MoviesTable({
   handlePagination,
   pagination,
   q,
+  year,
+  movieType,
 }: {
   handlePagination: (newPaginationModel: GridPaginationModel) => void;
   q: string;
   pagination: GridPaginationModel;
+  year: number | null;
+  movieType: MovieType | "";
 }) {
-  const { data, error, isFetching } = useSearchMoviesByTitleQuery({ title: q, page: pagination.page + 1 });
+  const { data, error, isFetching } = useSearchMoviesByTitleQuery(
+    { title: q, page: pagination.page + 1, year, movieType },
+    {
+      skip: !q,
+    },
+  );
 
   const rowsWithId = useMemo(() => {
     if (!data) return [];
@@ -44,11 +53,7 @@ export function MoviesTable({
       headerName: "Title",
       flex: 1,
       renderCell: (param) => {
-        return (
-          <Link to={`/movie/${param.row.imdbID}`} style={{ display: "flex", alignItems: "center" }}>
-            {param.value}
-          </Link>
-        );
+        return <Link to={`/movie/${param.row.imdbID}`}>{param.value}</Link>;
       },
     },
     { field: "Year", headerName: "Year", align: "right", width: 120, headerAlign: "right" },

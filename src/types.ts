@@ -32,3 +32,5 @@ export type MovieDetailItem = {
   Website: string;
   Response: string;
 };
+
+export type MovieType = "movie" | "series" | "episode";

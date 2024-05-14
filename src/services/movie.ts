@@ -18,8 +18,12 @@ export const imdbMoviesApi = createApi({
   reducerPath: "imdbMoviesApi",
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_BASE_URL }),
   endpoints: (builder) => ({
-    searchMoviesByTitle: builder.query<MovieSearchResponse, { title: string; page: number }>({
-      query: ({ title, page }) => `?s=${title}&page=${page}&apikey=${import.meta.env.VITE_API_KEY}`,
+    searchMoviesByTitle: builder.query<
+      MovieSearchResponse,
+      { title: string; page: number; year: number | null; movieType: string }
+    >({
+      query: ({ title, page, year, movieType }) =>
+        `?s=${title}&page=${page}&apikey=${import.meta.env.VITE_API_KEY}${year ? `&y=${year}` : ""}${movieType ? `&type=${movieType}` : ""}`,
     }),
     searchMovieByImdbID: builder.query<MovieDetailResponse, { imdbID: string }>({
       query: ({ imdbID }) => `?i=${imdbID}&apikey=${import.meta.env.VITE_API_KEY}`,

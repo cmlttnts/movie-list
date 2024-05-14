@@ -10,14 +10,29 @@ import { MovieSearch } from "../components/MovieSearch";
 import { useDebouncedCallback } from "../hooks/useDebouncedCallback";
 import { MoviesTable } from "../components/MoviesTable";
 import "./Home.scss";
+import { YearSelect } from "../components/YearSelect";
+import { Moment } from "moment";
+import { MovieType } from "../types";
+import { MovieTypeSelect } from "../components/MovieTypeSelect";
 
 export function HomePage() {
   const [pagination, setPagination] = useState<GridPaginationModel>({ page: 0, pageSize: 10 });
   const [q, setQ] = useState<string>("Pokemon");
+  const [year, setYear] = useState<number | null>(null);
+  const [movieType, setMovieType] = useState<MovieType | "">("");
 
   const handleSearch = useCallback((q: string) => {
     setQ(q);
   }, []);
+
+  const handleYearChange = (year: Moment | null) => {
+    if (year == null) setYear(null);
+    else setYear(year.year());
+  };
+
+  const handleMovieTypeChange = (type: MovieType | "") => {
+    setMovieType(type);
+  };
 
   const { debouncedCallback: debouncedHandler } = useDebouncedCallback({ callback: handleSearch, delay: 700 });
 
@@ -29,8 +44,18 @@ export function HomePage() {
     <>
       <CssBaseline />
       <div>
-        <MovieSearch onSearch={debouncedHandler} />
-        <MoviesTable handlePagination={handlePagination} q={q} pagination={pagination} />
+        <div className="filters-container">
+          <MovieSearch onSearch={debouncedHandler} />
+          <YearSelect onSelect={handleYearChange} />
+          <MovieTypeSelect onSelect={handleMovieTypeChange} />
+        </div>
+        <MoviesTable
+          handlePagination={handlePagination}
+          q={q}
+          pagination={pagination}
+          year={year}
+          movieType={movieType}
+        />
       </div>
     </>
   );

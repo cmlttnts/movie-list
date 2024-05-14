@@ -1,0 +1,8 @@
+.movie-info-container {
+  display: flex;
+  gap: 1rem; 
+}
+.movie-poster {
+  max-height: 500px;
+  object-fit: contain;
+}
